@@ -84,17 +84,21 @@
     parent.addClass(ClassName.open);
     tree.slideDown(this.options.animationSpeed, function () {
       $(this.element).trigger(expandedEvent);
+      parent.height('auto');
     }.bind(this));
   };
 
   Tree.prototype.collapse = function (tree, parentLi) {
     var collapsedEvent = $.Event(Event.collapsed);
 
-    tree.find(Selector.open).removeClass(ClassName.open);
+    //tree.find(Selector.open).removeClass(ClassName.open);
     parentLi.removeClass(ClassName.open);
     tree.slideUp(this.options.animationSpeed, function () {
-      tree.find(Selector.open + ' > ' + Selector.treeview).slideUp();
+      //tree.find(Selector.open + ' > ' + Selector.treeview).slideUp();
       $(this.element).trigger(collapsedEvent);
+
+      // Collapse child items
+      parentLi.find(Selector.treeview).removeClass(ClassName.open).find(Selector.treeviewMenu).hide();
     }.bind(this));
   };
 
